@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 13:23:13 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/22 22:47:14 by flavon           ###   ########.fr       */
+/*   Updated: 2020/09/23 13:25:55 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ typedef struct		s_param
 	unsigned long	f_col;
 	unsigned long	c_col;
 	char			dir;
+	int				f;
+	int				c;
 }					t_param;
 
 typedef struct		s_texture
@@ -163,12 +165,11 @@ typedef struct		s_data
 	int				sprite_count;
 }					t_data;
 
-void				my_mlx_square_pixel_put(t_data *img);
 char				**parse_map(char *filename);
 void				make_map(t_data *img, t_list **head, int size);
 int					load_textures(t_texture *tex, t_win *win, t_param *par);
 int					sprite_init(t_data *img, int x, int y);
-unsigned long		ft_calc_color(char *src);
+unsigned long		ft_calc_color(char *src, int *flag);
 void				error_msg(char *dst);
 int					ft_exit();
 void				ft_raycast(t_data *img);
@@ -184,15 +185,24 @@ void				ft_init(t_data *img);
 void				init_keys(t_key *key);
 void				init_param(t_param *param);
 
-void				way_down(t_data *img);
-void				way_up(t_data *img);
-void				way_left(t_data *img);
-void				way_right(t_data *img);
-void				ft_rotate(t_data *img, double cosinus);
+void				way_down(t_raycast *ray, t_map *map);
+void				way_up(t_raycast *ray, t_map *map);
+void				way_left(t_raycast *ray, t_map *map);
+void				way_right(t_raycast *ray, t_map *map);
+void				ft_rotate(t_raycast *ray, double cosinus);
 
 int					ft_run(t_data *img);
 int					ft_key_release(int key, t_data *img);
 int					ft_key_code(int key, t_data *img);
 int					check_map_step(char **map, int x, int y);
+
+int					validate_map(t_data *img);
+void				print_background(t_data *img, int x);
+int					ft_get_color(t_win *img, int x, int y);
+void				ft_get_sprite(t_data *img);
+void				ft_print_wall(t_data *img, int x);
+void				ft_pixel_put(t_data *img, int x, int y, int color);
+void				ft_calc_step(t_raycast *ray);
+void				ft_check_space(t_data *img);
 
 #endif

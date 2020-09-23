@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:31:54 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/22 22:47:09 by flavon           ###   ########.fr       */
+/*   Updated: 2020/09/23 14:15:44 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ static int		calc_rgb_color(char *src, int *index)
 	return (-1);
 }
 
-unsigned long	ft_calc_color(char *src)
+unsigned long	ft_calc_color(char *src, int *flag)
 {
-	int result[3];
-	unsigned long color;
-	int index;
-	int count;
+	int				result[3];
+	unsigned long	color;
+	int				index;
+	int				count;
 
 	index = 0;
 	count = 0;
 	while (src[index] != 0 && ft_isspace(src[index]) == 1)
-			index++;
+		index++;
 	while (src[index] != 0 && count <= 2)
 	{
 		if ((result[count] = calc_rgb_color(src, &index)) == -1)
@@ -52,12 +52,16 @@ unsigned long	ft_calc_color(char *src)
 			index++;
 	}
 	color = result[0] << 16 | result[1] << 8 | result[2];
-	if(count != 3 || src[index] != '\0')
+	if (count != 3 || src[index] != '\0')
 		error_msg("Error parse arguments F or C");
+	if (*flag == 1)
+		error_msg ("Second parametr");
+	else	
+		*flag += 1;
 	return (color);
 }
 
-int			load_textures(t_texture *tex, t_win *win, t_param *par)
+int				load_textures(t_texture *tex, t_win *win, t_param *par)
 {
 	if ((!(tex->no_tex.img = mlx_xpm_file_to_image(win->mlx, par->no_img,
 		&tex->no_tex.width, &tex->no_tex.height)) ||
@@ -70,7 +74,7 @@ int			load_textures(t_texture *tex, t_win *win, t_param *par)
 		(!(tex->we_tex.img = mlx_xpm_file_to_image(win->mlx, par->we_img,
 		&tex->we_tex.width, &tex->we_tex.height)) ||
 		!(tex->we_tex.addr = mlx_get_data_addr(tex->we_tex.img,
-		&tex->we_tex.bit_pix, &tex->we_tex.length,  &tex->we_tex.endian))) ||
+		&tex->we_tex.bit_pix, &tex->we_tex.length, &tex->we_tex.endian))) ||
 		(!(tex->ea_tex.img = mlx_xpm_file_to_image(win->mlx, par->ea_img,
 		&tex->ea_tex.width, &tex->ea_tex.height)) ||
 		!(tex->ea_tex.addr = mlx_get_data_addr(tex->ea_tex.img,
@@ -83,7 +87,7 @@ int			load_textures(t_texture *tex, t_win *win, t_param *par)
 	return (1);
 }
 
-int		ft_max_length(t_list *head)
+static int		ft_max_length(t_list *head)
 {
 	int length;
 	int tmp;
@@ -98,27 +102,25 @@ int		ft_max_length(t_list *head)
 	return (tmp);
 }
 
-void	make_map(t_data *img, t_list **head, int size)
+void			make_map(t_data *img, t_list **head, int size)
 {
 	int		i;
-	int		j;
-	
+
 	img->map.x = size;
 	img->map.y = ft_max_length(*head);
 	img->map.map = (char **)malloc(sizeof(char *) * (img->map.x + 1));
 	i = 0;
 	while (i < img->map.x)
-		if ((img->map.map[i++] = (char *)malloc(sizeof(char) * img->map.y + 1)) == 0)
+		if ((img->map.map[i++] =
+				(char *)malloc(sizeof(char) * (img->map.y + 1))) == 0)
 			error_msg("Memory fail");
 	img->map.map[img->map.x] = NULL;
 	i = 0;
 	while (*head != NULL)
 	{
-		j = 0;
-		while (img->map.map[i][j])
-			img->map.map[i][j++] = ' ';
 		img->map.map[i] = (*head)->content;
 		i++;
 		*head = (*head)->next;
 	}
+	ft_check_space(img);
 }

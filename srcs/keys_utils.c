@@ -6,13 +6,13 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 20:58:57 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/21 06:38:54 by flavon           ###   ########.fr       */
+/*   Updated: 2020/09/23 11:44:04 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			check_map_step(char **map, int x, int y)
+int				check_map_step(char **map, int x, int y)
 {
 	if (map[x][y] == ' ' || map[x][y] == '0' || map[x][y] == 'N'
 	|| map[x][y] == 'S' || map[x][y] == 'W' || map[x][y] == 'E')
@@ -42,7 +42,7 @@ int				ft_key_code(int key, t_data *img)
 int				ft_key_release(int key, t_data *img)
 {
 	if (key == UP)
-		img->key.up = 0;		
+		img->key.up = 0;
 	if (key == DOWN)
 		img->key.down = 0;
 	if (key == LEFT)
@@ -59,17 +59,17 @@ int				ft_key_release(int key, t_data *img)
 int				ft_run(t_data *img)
 {
 	if (img->key.up)
-		way_up(img);
+		way_up(&img->ray, &img->map);
 	if (img->key.down)
-		way_down(img);
+		way_down(&img->ray, &img->map);
 	if (img->key.left)
-		way_left(img);
+		way_left(&img->ray, &img->map);
 	if (img->key.right)
-		way_right(img);
+		way_right(&img->ray, &img->map);
 	if (img->key.r_left)
-		ft_rotate(img, -0.05);
+		ft_rotate(&img->ray, -0.05);
 	if (img->key.r_right)
-		ft_rotate(img, 0.05);
+		ft_rotate(&img->ray, 0.05);
 	if (!(img->win.img = mlx_new_image(img->win.mlx,
 									img->win.width, img->win.height)))
 		error_msg("Image error");

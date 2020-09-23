@@ -6,14 +6,14 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/12 19:26:56 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/17 11:22:04 by flavon           ###   ########.fr       */
+/*   Updated: 2020/09/23 11:52:07 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-static int		make_header(unsigned char *bmp_fheader, unsigned char *bmpinfheader, t_data *img)
+static int		make_header(unsigned char *bmp_fheader,
+							unsigned char *bmpinfheader, t_data *img)
 {
 	int file_size;
 
@@ -73,13 +73,14 @@ int				ft_screen_shot(t_data *img)
 	unsigned char	bmp_fheader[14];
 	unsigned char	bmpinfheader[40];
 
-
 	ft_putstr_fd("Saving screenshot...\n");
 	ft_bzero(bmp_fheader, 14);
 	ft_bzero(bmpinfheader, 40);
 	make_header(bmp_fheader, bmpinfheader, img);
 	if (!write_in_header(bmp_fheader, bmpinfheader, img))
 		ft_putstr_fd("Saving screenshot failed!\n");
+	else
+		ft_putstr_fd("Saving screenshot success!\n");
 	exit(0);
 	return (0);
 }

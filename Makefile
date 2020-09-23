@@ -6,7 +6,7 @@
 #    By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/17 20:52:46 by flavon            #+#    #+#              #
-#    Updated: 2020/09/20 11:50:35 by flavon           ###   ########.fr        #
+#    Updated: 2020/09/23 12:22:51 by flavon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = srcs/main.c srcs/libft/get_next_line.c srcs/libft/get_next_line_utils.c \
 		srcs/libft/ft_atoi.c srcs/ft_init.c srcs/ft_error.c  srcs/ft_raycast.c \
 		srcs/libft/ft_strdup.c srcs/ft_screen_shot.c srcs/libft/ft_putstr_fd.c \
 		srcs/initialize.c srcs/initialize_utils.c srcs/ft_validate_param.c \
-		srcs/libft/ft_strncmp.c srcs/keys.c srcs/keys_utils.c
+		srcs/libft/ft_strncmp.c srcs/keys.c srcs/keys_utils.c srcs/validate_map.c \
+		srcs/ft_raycast_utils.c srcs/ft_sprite.c
 
 OBJ = $(SRCS:.c=.o)
 

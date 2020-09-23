@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 22:18:34 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/15 22:23:51 by flavon           ###   ########.fr       */
+/*   Updated: 2020/09/23 11:47:51 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_param(t_param *param)
 	param->so_img = NULL;
 	param->s_img = NULL;
 	param->no_img = NULL;
+	param->f = 0;
+	param->c = 0;
 }
 
 void	init_keys(t_key *key)

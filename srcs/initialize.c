@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:46:14 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/21 14:44:42 by flavon           ###   ########.fr       */
+/*   Updated: 2020/09/23 11:43:44 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	init_img(t_win *win)
 	win->height = 0;
 }
 
-void			ft_init(t_data *img)
+void		ft_init(t_data *img)
 {
 	img->sprite_count = 0;
 	img->map.map = NULL;

@@ -6,47 +6,18 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 20:52:49 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/22 22:52:38 by flavon           ###   ########.fr       */
+/*   Updated: 2020/09/23 14:13:42 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void			ft_find_objects(t_data *img)
-{
-	int x;
-	int y;
-
-	x = 0;
-	while (img->map.map[x] != 0)
-	{
-		y = 0;
-		while (img->map.map[x][y] != 0)
-		{
-			if (img->map.map[x][y] == 'E' ||
-				img->map.map[x][y] == 'N' ||
-				img->map.map[x][y] == 'S' ||
-				img->map.map[x][y] == 'W')
-				{
-					img->ray.player_x = (double)x + 0.5;
-					img->ray.player_y = (double)y + 0.5;
-					img->par.dir = img->map.map[x][y];
-				}
-			else if (img->map.map[x][y] == '2')
-				if(sprite_init(img, x, y) == 0)
-					error_msg("Sprite error");
-			y++;
-		}
-		x++;
-	}
-}
-
 static t_list	*parse_map_cub(char *filename)
 {
-	t_list *head;
-	t_list *tmp;
-	int fd;
-	char *line;
+	t_list	*head;
+	t_list	*tmp;
+	int		fd;
+	char	*line;
 
 	tmp = NULL;
 	head = NULL;
@@ -57,7 +28,6 @@ static t_list	*parse_map_cub(char *filename)
 		if ((tmp = ft_lstnew(line)) == 0)
 			error_msg("Memmory error");
 		ft_lstadd_back(&head, tmp);
-			
 	}
 	if ((tmp = ft_lstnew(line)) == 0)
 		error_msg("Memmory error");
@@ -69,7 +39,7 @@ static t_list	*parse_map_cub(char *filename)
 static	t_data	parse(t_data img, char *filename)
 {
 	t_list *head;
-	
+
 	head = parse_map_cub(filename);
 	while (head != NULL)
 	{
@@ -81,13 +51,13 @@ static	t_data	parse(t_data img, char *filename)
 				(img.map.line[0] == 'W' && img.map.line[1] == 'E') ||
 				(img.map.line[0] == 'E' && img.map.line[1] == 'A') ||
 				(img.map.line[0] == 'S'))
-					ft_get_param(&img.par, img.map.line);
+			ft_get_param(&img.par, img.map.line);
 		else if (img.map.line[0] == 'F')
-			img.par.f_col = ft_calc_color(&img.map.line[1]);
+			img.par.f_col = ft_calc_color(&img.map.line[1], &img.par.f);
 		else if (img.map.line[0] == 'C')
-			img.par.c_col = ft_calc_color(&img.map.line[1]);
+			img.par.c_col = ft_calc_color(&img.map.line[1], &img.par.c);
 		else
-			break;
+			break ;
 		head = head->next;
 	}
 	make_map(&img, &head, ft_lstsize(head));
@@ -101,52 +71,14 @@ static int		check_arguments(t_data *img)
 	count = 0;
 	if (img->win.width != 0 && img->win.height != 0)
 		count += 1;
-	if (img->par.c_col != 0 || img->par.f_col != 0)
+	if (img->par.c != 0 && img->par.f != 0)
 		count += 2;
 	if (img->par.ea_img != 0 && img->par.no_img != 0 && img->par.s_img != 0
 		&& img->par.so_img != 0 && img->par.we_img != 0)
 		count += 5;
-	if (count == 8)
-		return (1);
-	return (0);
-}
-
-static int	flood_fill(char **map, int x, int y, int size)
-{
-	if (map[x][y] == ' ' || x < 0 || y < 0 || map[x][y] == '\0'
-		|| x >= size)
-		return (0);
-	if (map[x][y] == '1' || map[x][y] == '.')
-		return (1);
-	map[x][y] = '.';
-	return (flood_fill(map, x - 1, y, size)
-		&& flood_fill(map, x + 1, y, size)
-		&& flood_fill(map, x, y - 1, size)
-		&& flood_fill(map, x, y + 1, size));
-}
-
-static int		validate_map(t_data *img)
-{
-	int i;
-	int j;
-
-	i = 0;
-	ft_find_objects(img);
-	if (!flood_fill(img->map.map, (int)(img->ray.player_x - 0.5),
-		(int)(img->ray.player_y - 0.5), img->map.x + 1))
-		error_msg("Invalid map");
-	while (img->map.map[i])
-	{
-		j = -1;
-		while (img->map.map[i][++j])
-			if (img->map.map[i][j] == '.')
-				img->map.map[i][j] = '0';
-		i++;
-	}
-	i = -1;
-	while (++i < img->sprite_count)
-		img->map.map[(int)(img->sprite[i].x - 0.5)][(int)(img->sprite[i].y - 0.5)] = '2';
-	return (1);	
+	if (count != 8)
+		error_msg ("Invalid arguments");
+	return (1);
 }
 
 int				main(int argc, char **argv)
