@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 15:22:51 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 12:58:35 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 09:08:26 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,25 @@ void	calc_player(t_data *img)
 {
 	if (img->par.dir == 'N')
 	{
-		img->ray.dir_y = -1;
-		img->ray.plane_x = tan(M_PI * FOV / 360);
+		img->ray.dir_y = 1;
+		img->ray.plane_x = -tan(M_PI * FOV / 360);
+		
 	}
 	else if (img->par.dir == 'W')
+	{	
+		img->ray.dir_x = 1;
+		img->ray.plane_y = tan(M_PI * FOV / 360);
+		
+	}
+	else if (img->par.dir == 'E')
 	{
 		img->ray.dir_x = -1;
 		img->ray.plane_y = -tan(M_PI * FOV / 360);
 	}
-	else if (img->par.dir == 'E')
-	{
-		img->ray.dir_x = 1;
-		img->ray.plane_y = tan(M_PI * FOV / 360);
-	}
 	else if (img->par.dir == 'S')
 	{
-		img->ray.dir_y = 1;
-		img->ray.plane_x = -tan(M_PI * FOV / 360);
+		img->ray.dir_y = -1;
+		img->ray.plane_x = tan(M_PI * FOV / 360);
 	}
 }
 
