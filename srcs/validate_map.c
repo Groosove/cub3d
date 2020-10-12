@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 12:10:44 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/12 19:32:40 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:44:53 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	ft_find_objects(t_data *img)
 
 static int	flood_fill(char **map, int x, int y, int size)
 {
+	if (map[x] == NULL)
+		return (0);
 	if (map[x][y] == ' ' || x < 0 || y < 0 || map[x][y] == '\0'
 		|| x > size)
 		return (0);

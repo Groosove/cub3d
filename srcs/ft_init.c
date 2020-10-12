@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:31:54 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/12 19:31:58 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:38:28 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ void			make_map(t_data *img, t_list **head, int size)
 	i = 0;
 	while (*head != NULL)
 	{
-		img->map.map[i] = (*head)->content;
-		i++;
+		img->map.map[i++] = (*head)->content;
 		*head = (*head)->next;
 	}
 	ft_lstclear(head, ft_free_line);
