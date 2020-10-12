@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 20:52:49 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 14:13:42 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:32:52 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int		check_arguments(t_data *img)
 		&& img->par.so_img != 0 && img->par.we_img != 0)
 		count += 5;
 	if (count != 8)
-		error_msg ("Invalid arguments");
+		error_msg("Invalid arguments");
 	return (1);
 }
 

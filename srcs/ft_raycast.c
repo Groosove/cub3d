@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 15:22:51 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/12 09:08:26 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:33:13 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,11 @@ void	calc_player(t_data *img)
 	{
 		img->ray.dir_y = 1;
 		img->ray.plane_x = -tan(M_PI * FOV / 360);
-		
 	}
 	else if (img->par.dir == 'W')
-	{	
+	{
 		img->ray.dir_x = 1;
 		img->ray.plane_y = tan(M_PI * FOV / 360);
-		
 	}
 	else if (img->par.dir == 'E')
 	{

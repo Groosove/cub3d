@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_validate_param.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:58:24 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 14:11:45 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:32:23 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		ft_get_param(t_param *par, char *src)
 	else if (src[0] == 'S' && par->s_img == 0)
 		par->s_img = ft_strdup(&src[count]);
 	else
-		error_msg ("Second parametr");
+		error_msg("Second parametr");
 	ltg = ft_strlen(src);
 	if (src[ltg] != '\0')
 		error_msg("Character after arguments");

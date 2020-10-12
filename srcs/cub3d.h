@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 13:23:13 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 13:25:55 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:23:35 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,5 +204,6 @@ void				ft_print_wall(t_data *img, int x);
 void				ft_pixel_put(t_data *img, int x, int y, int color);
 void				ft_calc_step(t_raycast *ray);
 void				ft_check_space(t_data *img);
-
+void				ft_free(t_data *img);
+void				ft_free_line(void *content);
 #endif

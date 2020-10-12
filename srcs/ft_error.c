@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:31:51 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 13:36:30 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:31:37 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	ft_check_space(t_data *img)
 	while (img->map.map[i])
 	{
 		if (ft_strlen(img->map.map[i]) != 0)
-			break;
+			break ;
 		i++;
 	}
 	while (i < img->map.x - 1)
 	{
 		if (ft_strlen(img->map.map[i]) == 0)
-			error_msg ("Invalid map");
+			error_msg("Invalid map");
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:31:54 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 14:15:44 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:31:58 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int		calc_rgb_color(char *src, int *index)
 unsigned long	ft_calc_color(char *src, int *flag)
 {
 	int				result[3];
-	unsigned long	color;
 	int				index;
 	int				count;
 
@@ -51,14 +50,13 @@ unsigned long	ft_calc_color(char *src, int *flag)
 		if (src[index] == ',')
 			index++;
 	}
-	color = result[0] << 16 | result[1] << 8 | result[2];
 	if (count != 3 || src[index] != '\0')
 		error_msg("Error parse arguments F or C");
 	if (*flag == 1)
-		error_msg ("Second parametr");
-	else	
+		error_msg("Second parametr");
+	else
 		*flag += 1;
-	return (color);
+	return (result[0] << 16 | result[1] << 8 | result[2]);
 }
 
 int				load_textures(t_texture *tex, t_win *win, t_param *par)
@@ -122,5 +120,6 @@ void			make_map(t_data *img, t_list **head, int size)
 		i++;
 		*head = (*head)->next;
 	}
+	ft_lstclear(head, ft_free_line);
 	ft_check_space(img);
 }

@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 12:10:44 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 14:05:46 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/12 19:32:40 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void ft_check_around(t_data *img, int x, int y)
+static void	ft_check_around(t_data *img, int x, int y)
 {
 	if (y - 1 < 0 || x - 1 < 0)
-		error_msg ("Invalid map");
+		error_msg("Invalid map");
 	if (img->map.map[x][y + 1] == '\0' ||
 		img->map.map[x][y + 1] == ' ' || img->map.map[x][y - 1] == '\0')
-		error_msg ("Invalid map");
+		error_msg("Invalid map");
 	if (img->map.map[x + 1][y] == '\0' || img->map.map[x - 1][y] == ' ')
-		error_msg ("Invalid map");
+		error_msg("Invalid map");
 }
 
 static void	ft_find_objects(t_data *img)
