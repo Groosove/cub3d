@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 15:38:13 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/12 19:31:49 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 13:16:59 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	ft_free_map_and_param(t_map *map, t_param *par, t_sprite *sprite)
 	if (map->map)
 		while (map->map[++i])
 			free(map->map[i]);
-	if (map->line)
-		free(map->line);
 	if (par)
 	{
 		if (par->ea_img)

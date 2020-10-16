@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 12:10:44 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/12 19:44:53 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 13:55:41 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static void	ft_check_around(t_data *img, int x, int y)
 {
 	if (y - 1 < 0 || x - 1 < 0)
-		error_msg("Invalid map");
+		error_msg("Invalid map", img);
 	if (img->map.map[x][y + 1] == '\0' ||
 		img->map.map[x][y + 1] == ' ' || img->map.map[x][y - 1] == '\0')
-		error_msg("Invalid map");
+		error_msg("Invalid map", img);
 	if (img->map.map[x + 1][y] == '\0' || img->map.map[x - 1][y] == ' ')
-		error_msg("Invalid map");
+		error_msg("Invalid map", img);
 }
 
 static void	ft_find_objects(t_data *img)
@@ -42,11 +42,11 @@ static void	ft_find_objects(t_data *img)
 				if (img->par.dir == 0)
 					img->par.dir = img->map.map[x][y];
 				else
-					error_msg("Second player on map");
+					error_msg("Second player on map", img);
 			}
 			else if (img->map.map[x][y] == '2')
 				if (sprite_init(img, x, y) == 0)
-					error_msg("Sprite error");
+					error_msg("Sprite error", img);
 		x++;
 	}
 }
@@ -67,7 +67,7 @@ static int	flood_fill(char **map, int x, int y, int size)
 		&& flood_fill(map, x, y + 1, size));
 }
 
-static void	ft_check_map_valid(char **map)
+static void	ft_check_map_valid(char **map, t_data *img)
 {
 	int x;
 	int y;
@@ -83,7 +83,7 @@ static void	ft_check_map_valid(char **map)
 				map[x][y] == 'W' || map[x][y] == 'S')
 				y++;
 			else
-				error_msg("Invalid map");
+				error_msg("Invalid map", img);
 		x++;
 	}
 }
@@ -94,11 +94,11 @@ int			validate_map(t_data *img)
 	int j;
 
 	i = 0;
-	ft_check_map_valid(img->map.map);
+	ft_check_map_valid(img->map.map, img);
 	ft_find_objects(img);
 	if (!flood_fill(img->map.map, (int)(img->ray.player_x - 0.5),
 		(int)(img->ray.player_y - 0.5), img->map.x + 1))
-		error_msg("Invalid map");
+		error_msg("Invalid map", img);
 	while (img->map.map[i])
 	{
 		j = -1;

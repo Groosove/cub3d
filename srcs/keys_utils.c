@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 20:58:57 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/12 19:22:32 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 13:32:25 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				check_map_step(char **map, int x, int y)
 int				ft_key_code(int key, t_data *img)
 {
 	if (key == 53)
-		ft_exit();
+		ft_exit(img);
 	else if (key == UP)
 		img->key.up = 1;
 	else if (key == DOWN)
@@ -72,10 +72,10 @@ int				ft_run(t_data *img)
 		ft_rotate(&img->ray, 0.05);
 	if (!(img->win.img = mlx_new_image(img->win.mlx,
 									img->win.width, img->win.height)))
-		error_msg("Image error");
+		error_msg("Image error", img);
 	if (!(img->win.addr = mlx_get_data_addr(img->win.img,
 						&img->win.bit_pix, &img->win.length, &img->win.endian)))
-		error_msg("Image error");
+		error_msg("Image error", img);
 	ft_raycast(img);
 	mlx_put_image_to_window(img->win.mlx, img->win.win, img->win.img, 0, 0);
 	return (0);

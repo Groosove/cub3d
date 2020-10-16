@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:31:54 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/12 19:38:28 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 17:01:52 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		calc_rgb_color(char *src, int *index)
 	return (-1);
 }
 
-unsigned long	ft_calc_color(char *src, int *flag)
+unsigned long	ft_calc_color(char *src, int *flag, t_data *img)
 {
 	int				result[3];
 	int				index;
@@ -44,16 +44,16 @@ unsigned long	ft_calc_color(char *src, int *flag)
 	while (src[index] != 0 && count <= 2)
 	{
 		if ((result[count] = calc_rgb_color(src, &index)) == -1)
-			error_msg("Error parse arguments F or C");
+			error_msg("Error parse arguments F or C", img);
 		else
 			count++;
 		if (src[index] == ',')
 			index++;
 	}
 	if (count != 3 || src[index] != '\0')
-		error_msg("Error parse arguments F or C");
+		error_msg("Error parse arguments F or C", img);
 	if (*flag == 1)
-		error_msg("Second parametr");
+		error_msg("Second parametr", img);
 	else
 		*flag += 1;
 	return (result[0] << 16 | result[1] << 8 | result[2]);
@@ -103,6 +103,7 @@ static int		ft_max_length(t_list *head)
 void			make_map(t_data *img, t_list **head, int size)
 {
 	int		i;
+	t_list	*tmp;
 
 	img->map.x = size;
 	img->map.y = ft_max_length(*head);
@@ -111,14 +112,18 @@ void			make_map(t_data *img, t_list **head, int size)
 	while (i < img->map.x)
 		if ((img->map.map[i++] =
 				(char *)malloc(sizeof(char) * (img->map.y + 1))) == 0)
-			error_msg("Memory fail");
+			error_msg("Memory fail", img);
 	img->map.map[img->map.x] = NULL;
 	i = 0;
 	while (*head != NULL)
 	{
-		img->map.map[i++] = (*head)->content;
+		tmp = *head;
+		img->map.map[i++] = ft_strdup(tmp->content);
 		*head = (*head)->next;
+		ft_lstdelone(tmp, ft_free_line);
 	}
-	ft_lstclear(head, ft_free_line);
+	int j = -1;
+	while (img->map.map[++j])
+		printf("%s\n", img->map.map[++j]);
 	ft_check_space(img);
 }
