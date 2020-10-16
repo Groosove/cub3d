@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:31:54 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 17:01:52 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 19:23:30 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,30 +100,21 @@ static int		ft_max_length(t_list *head)
 	return (tmp);
 }
 
-void			make_map(t_data *img, t_list **head, int size)
+void			make_map(t_data *img, t_list *head, int size)
 {
 	int		i;
 	t_list	*tmp;
 
 	img->map.x = size;
-	img->map.y = ft_max_length(*head);
+	img->map.y = ft_max_length(head);
 	img->map.map = (char **)malloc(sizeof(char *) * (img->map.x + 1));
-	i = 0;
-	while (i < img->map.x)
-		if ((img->map.map[i++] =
-				(char *)malloc(sizeof(char) * (img->map.y + 1))) == 0)
-			error_msg("Memory fail", img);
 	img->map.map[img->map.x] = NULL;
 	i = 0;
-	while (*head != NULL)
+	tmp = head;
+	while (tmp != NULL)
 	{
-		tmp = *head;
 		img->map.map[i++] = ft_strdup(tmp->content);
-		*head = (*head)->next;
-		ft_lstdelone(tmp, ft_free_line);
+		tmp = tmp->next;
 	}
-	int j = -1;
-	while (img->map.map[++j])
-		printf("%s\n", img->map.map[++j]);
 	ft_check_space(img);
 }

@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:58:24 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 13:29:56 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 17:33:33 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ void		ft_mlx_init(t_data *img)
 	img->ray.buffer = (double *)malloc(sizeof(double) * (img->win.width + 1));
 }
 
-void		create_window(t_data *img)
+void		create_window(char *line, t_data *img)
 {
 	int count;
 	int x;
 	int y;
 
 	count = 1;
-	while (ft_isspace(img->map.line[count]))
+	while (ft_isspace(line[count]))
 		count++;
-	img->win.width = ft_atoi(img->map.line, &count);
-	while (ft_isspace(img->map.line[count]))
+	img->win.width = ft_atoi(line, &count);
+	while (ft_isspace(line[count]))
 		count++;
-	img->win.height = ft_atoi(img->map.line, &count);
-	if (img->map.line[count] != '\0')
+	img->win.height = ft_atoi(line, &count);
+	if (line[count] != '\0')
 		error_msg("Character after arguments", img);
 	mlx_get_screen_size(img->win.mlx, &x, &y);
 	img->win.width = (img->win.width > x || img->win.width <= 0) ?

@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 20:52:49 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 16:56:42 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 19:25:31 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static t_list	*parse_map_cub(char *filename, t_data *img)
 		error_msg("Invalid file", img);
 	while (get_next_line(fd, &line) > 0)
 	{
-		if ((tmp = ft_lstnew(line)) == 0)
+		if (line == 0)
+			continue ;
+		if (!(tmp = ft_lstnew(line)))
 			error_msg("Memmory error", img);
 		ft_lstadd_back(&head, tmp);
 	}
@@ -38,33 +40,33 @@ static t_list	*parse_map_cub(char *filename, t_data *img)
 
 static	t_data	parse(t_data img, char *filename)
 {
-	t_list *head;
-	t_list *tmp;
+	t_list	*head;
+	t_list	*tmp;
+	char	*line;
 
 	head = parse_map_cub(filename, &img);
+	tmp = head;
 	while (head != NULL)
 	{
-		tmp = head;
-		img.map.line = ft_strdup(tmp->content);
-		if (img.map.line[0] == 'R')
-			create_window(&img);
-		else if ((img.map.line[0] == 'N' && img.map.line[1] == 'O') ||
-				(img.map.line[0] == 'S' && img.map.line[1] == 'O') ||
-				(img.map.line[0] == 'W' && img.map.line[1] == 'E') ||
-				(img.map.line[0] == 'E' && img.map.line[1] == 'A') ||
-				(img.map.line[0] == 'S'))
-			ft_get_param(img.map.line, &img);
-		else if (img.map.line[0] == 'F')
-			img.par.f_col = ft_calc_color(&img.map.line[1], &img.par.f, &img);
-		else if (img.map.line[0] == 'C')
-			img.par.c_col = ft_calc_color(&img.map.line[1], &img.par.c, &img);
-		else
+		line = tmp->content;
+		if (line[0] == 'R')
+			create_window(line, &img);
+		else if ((line[0] == 'N' && line[1] == 'O') ||
+				(line[0] == 'S' && line[1] == 'O') ||
+				(line[0] == 'W' && line[1] == 'E') ||
+				(line[0] == 'E' && line[1] == 'A') ||
+				(line[0] == 'S'))
+			ft_get_param(line, &img);
+		else if (line[0] == 'F')
+			img.par.f_col = ft_calc_color(&line[1], &img.par.f, &img);
+		else if (line[0] == 'C')
+			img.par.c_col = ft_calc_color(&line[1], &img.par.c, &img);
+		else if (line[0] == '1' || line[0] == '2' || line[0] == ' ' || line[0] == '0')
 			break ;
-		ft_lstdelone(tmp, ft_free_line);
-		head = head->next;
+		tmp = tmp->next;
 	}
-	make_map(&img, &(head->next), ft_lstsize(head));
-	free(img.map.line);
+	make_map(&img, tmp, ft_lstsize(tmp));
+	ft_lstclear(&head, &free);
 	return (img);
 }
 

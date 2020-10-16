@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 13:23:13 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 14:47:53 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 17:45:24 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct		s_paint
 
 typedef	struct		s_map
 {
-	char			*line;
 	char			**map;
 	int				x;
 	int 			y;
@@ -166,7 +165,7 @@ typedef struct		s_data
 }					t_data;
 
 char				**parse_map(char *filename);
-void				make_map(t_data *img, t_list **head, int size);
+void				make_map(t_data *img, t_list *head, int size);
 int					load_textures(t_texture *tex, t_win *win, t_param *par);
 int					sprite_init(t_data *img, int x, int y);
 unsigned long		ft_calc_color(char *src, int *flag, t_data *img);
@@ -177,7 +176,7 @@ void				calc_player(t_data *img);
 int					ft_screen_shot(t_data *img);
 
 void				validate_input_argc(char **argv, int argc, t_data *img);
-void				create_window(t_data *img);
+void				create_window(char *line, t_data *img);
 void				ft_mlx_init(t_data *img);
 void				ft_get_param(char *src, t_data *img);
 

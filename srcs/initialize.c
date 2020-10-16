@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/15 21:46:14 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/23 11:43:44 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/16 17:33:56 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void		ft_init(t_data *img)
 {
 	img->sprite_count = 0;
 	img->map.map = NULL;
-	img->map.line = NULL;
 	img->sprite = NULL;
 	init_param(&img->par);
 	init_keys(&img->key);
