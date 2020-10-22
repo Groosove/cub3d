@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 20:52:49 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 19:25:31 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/21 19:27:54 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,47 @@ static t_list	*parse_map_cub(char *filename, t_data *img)
 	return (head);
 }
 
-static	t_data	parse(t_data img, char *filename)
+static	int		arg_parse(char *line, t_data *img)
+{
+	if (line[0] == 'R')
+		create_window(line, img);
+	else if ((line[0] == 'N' && line[1] == 'O') ||
+			(line[0] == 'S' && line[1] == 'O') ||
+			(line[0] == 'W' && line[1] == 'E') ||
+			(line[0] == 'E' && line[1] == 'A') ||
+			(line[0] == 'S'))
+		ft_get_param(line, img);
+	else if (line[0] == 'F')
+		img->par.f_col = ft_calc_color(&line[1], &img->par.f, img);
+	else if (line[0] == 'C')
+		img->par.c_col = ft_calc_color(&line[1], &img->par.c, img);
+	else if (line[0] == '1' ||
+			line[0] == ' ' || line[0] == '0' || line[0] == '2')
+		return (0);
+	else if (ft_strlen(line) == 0)
+		return (1);
+	else 
+		return (0);
+	return (1);
+}
+
+static	void	parse(t_data *img, char *filename)
 {
 	t_list	*head;
 	t_list	*tmp;
 	char	*line;
 
-	head = parse_map_cub(filename, &img);
+	head = parse_map_cub(filename, img);
 	tmp = head;
-	while (head != NULL)
+	while (tmp != NULL)
 	{
 		line = tmp->content;
-		if (line[0] == 'R')
-			create_window(line, &img);
-		else if ((line[0] == 'N' && line[1] == 'O') ||
-				(line[0] == 'S' && line[1] == 'O') ||
-				(line[0] == 'W' && line[1] == 'E') ||
-				(line[0] == 'E' && line[1] == 'A') ||
-				(line[0] == 'S'))
-			ft_get_param(line, &img);
-		else if (line[0] == 'F')
-			img.par.f_col = ft_calc_color(&line[1], &img.par.f, &img);
-		else if (line[0] == 'C')
-			img.par.c_col = ft_calc_color(&line[1], &img.par.c, &img);
-		else if (line[0] == '1' || line[0] == '2' || line[0] == ' ' || line[0] == '0')
+		if (arg_parse(line, img) == 0)
 			break ;
 		tmp = tmp->next;
 	}
-	make_map(&img, tmp, ft_lstsize(tmp));
+	make_map(img, tmp, ft_lstsize(tmp));
 	ft_lstclear(&head, &free);
-	return (img);
 }
 
 static int		check_arguments(t_data *img)
@@ -93,13 +104,14 @@ int				main(int argc, char **argv)
 
 	validate_input_argc(argv, argc, &img);
 	ft_init(&img);
-	img = parse(img, argv[1]);
+	parse(&img, argv[1]);
 	if (check_arguments(&img) == 1)
 		if (!validate_map(&img))
 			error_msg("Invalid map", &img);
-	ft_mlx_init(&img);
+	img.win.mlx = mlx_init();
 	if (load_textures(&img.tex, &img.win, &img.par) == 0)
 		error_msg("Error texture", &img);
+	ft_mlx_init(&img);
 	calc_player(&img);
 	ft_raycast(&img);
 	if (argc == 3)

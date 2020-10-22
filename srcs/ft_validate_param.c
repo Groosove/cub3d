@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 11:58:24 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 17:33:33 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/21 16:51:43 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void		validate_input_argc(char **argv, int argc, t_data *img)
 
 void		ft_mlx_init(t_data *img)
 {
-	img->win.mlx = mlx_init();
 	if (!(img->win.win = mlx_new_window(img->win.mlx, img->win.width,
 		img->win.height, "cub3D")))
 		error_msg("MLX Failed", img);
@@ -59,6 +58,8 @@ void		create_window(char *line, t_data *img)
 	img->win.width = ft_atoi(line, &count);
 	while (ft_isspace(line[count]))
 		count++;
+	if (line[count] == 0)
+		error_msg("One arguments in resolution", img);
 	img->win.height = ft_atoi(line, &count);
 	if (line[count] != '\0')
 		error_msg("Character after arguments", img);

@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 08:31:54 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 19:23:30 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/21 19:09:32 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,13 @@ void			make_map(t_data *img, t_list *head, int size)
 		img->map.map[i++] = ft_strdup(tmp->content);
 		tmp = tmp->next;
 	}
+	i = -1;
+	if (img->map.map[size - 1][0])
+		while (img->map.map[size - 1][++i])
+			if (img->map.map[size - 1][i] == '0')
+				if (img->map.map[size - 2][i] == '2' ||
+					img->map.map[size - 2][i] == ' ' ||
+					img->map.map[size - 2][i] == '0')
+					error_msg("Invalid map", img);
 	ft_check_space(img);
 }

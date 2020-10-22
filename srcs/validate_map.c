@@ -6,7 +6,7 @@
 /*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 12:10:44 by flavon            #+#    #+#             */
-/*   Updated: 2020/10/16 13:55:41 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/21 19:21:58 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	ft_find_objects(t_data *img)
 	int x;
 	int y;
 
-	x = 0;
-	while (img->map.map[x] != 0)
+	x = -1;
+	while (img->map.map[++x] != 0)
 	{
 		y = -1;
 		while (img->map.map[x][++y] != 0)
@@ -47,16 +47,16 @@ static void	ft_find_objects(t_data *img)
 			else if (img->map.map[x][y] == '2')
 				if (sprite_init(img, x, y) == 0)
 					error_msg("Sprite error", img);
-		x++;
 	}
+	if (img->par.dir == 0)
+		error_msg("No player on map", img);
 }
 
 static int	flood_fill(char **map, int x, int y, int size)
 {
 	if (map[x] == NULL)
 		return (0);
-	if (map[x][y] == ' ' || x < 0 || y < 0 || map[x][y] == '\0'
-		|| x > size)
+	if (map[x][y] == ' ' || x < 0 || y < 0 || map[x][y] == '\0' || x > size)
 		return (0);
 	if (map[x][y] == '1' || map[x][y] == '.')
 		return (1);
@@ -93,19 +93,18 @@ int			validate_map(t_data *img)
 	int i;
 	int j;
 
-	i = 0;
+	i = -1;
 	ft_check_map_valid(img->map.map, img);
 	ft_find_objects(img);
 	if (!flood_fill(img->map.map, (int)(img->ray.player_x - 0.5),
 		(int)(img->ray.player_y - 0.5), img->map.x + 1))
 		error_msg("Invalid map", img);
-	while (img->map.map[i])
+	while (img->map.map[++i])
 	{
 		j = -1;
 		while (img->map.map[i][++j])
 			if (img->map.map[i][j] == '.')
 				img->map.map[i][j] = '0';
-		i++;
 	}
 	i = -1;
 	while (++i < img->sprite_count)

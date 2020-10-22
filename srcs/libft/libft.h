@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavon <flavon@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: flavon <flavon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 20:59:23 by flavon            #+#    #+#             */
-/*   Updated: 2020/09/17 00:52:50 by flavon           ###   ########.fr       */
+/*   Updated: 2020/10/21 19:05:33 by flavon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char				*ft_strjoin(char const *s1, char const *s2);
 int					get_next_line(int fd, char **line);
 
 size_t				ft_strlen(const char *str);
+
+void				*ft_memset(void *ptr, int value, size_t num);
 
 void				ft_bzero(void *s, size_t n);
 
